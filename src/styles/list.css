@@ -1,0 +1,23 @@
+* {
+	box-sizing: border-box;
+}
+.list-box {
+	border: 1px solid red;
+	padding: 20px;
+	max-width: 500px;
+}
+.list-title {
+	margin-bottom: 20px;
+}
+
+.list-input, .list-btn {
+	height: 40px;
+	padding: 0 10px
+}
+.list-input:focus {
+	outline: none;
+}
+.list-item {
+	display: flex;
+	justify-content: space-between;
+}
