@@ -7,9 +7,10 @@ class List extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			items: ['one'],
+			items: [],
 			inputValue: ''
 		}
+		this.deleteItem = this.deleteItem.bind(this)
 		this.ItemsList = this.state.items.map(el => {
 			return (
 				<ListItem key={el} name={el} />
@@ -22,6 +23,9 @@ class List extends React.Component {
 			inputValue: inputValue
 		})
 	}
+	deleteItem = () => {
+		console.log(this);
+	}
 	addItem = () => {
 		const newItems = [...this.state.items];
 		newItems.push(this.state.inputValue);
@@ -29,7 +33,7 @@ class List extends React.Component {
 			items: newItems,
 			inputValue: ''
 		}, () => {
-			console.log(this.state.items);
+			//callback
 		})
 	}
 	render() {
@@ -48,7 +52,7 @@ class List extends React.Component {
 					{
 						this.state.items.map(el => {
 							return (
-								<ListItem key={el} name={el} />
+								<ListItem key={el} name={el} deleteItem={this.deleteItem.bind(this)}/>
 							)
 						})
 					}

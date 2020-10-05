@@ -1,11 +1,11 @@
 import React from 'react';
 
 
-export default ({name}) => {
+export default ({deleteItem, name}) => {
 	return (
 		<li className="list-item">
 			<span>{name}</span>
-			<button>close</button>
+			<button onClick={deleteItem}>close</button>
 		</li>
 	)
 }
