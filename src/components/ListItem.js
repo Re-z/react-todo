@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
+import styles from "../styles/mystyles.module.css";
 
-
-export default props => {
-	const liStyle = props.done ? {backgroundColor: 'green'} : {backgroundColor: 'red'};
+export const ListItem = (props) => {
 	return (
-		<li className="list-item" style={liStyle}>
+		<li className={`list-item ${props.done ? styles.done : styles.notDone}`}>
 			<span>{props.name}</span>
 			<span>id: {props.id}</span>
 			<span>
@@ -12,5 +11,5 @@ export default props => {
 				<button onClick={props.deleteItem}>close</button>
 			</span>
 		</li>
-	)
-}
+	);
+};

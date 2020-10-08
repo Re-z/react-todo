@@ -1,5 +1,5 @@
 import React from 'react';
-import ListItem from '../components/ListItem';
+import {ListItem} from '../components/ListItem';
 
 import '../styles/list.css';
 
@@ -14,7 +14,7 @@ class List extends React.Component {
 	setInputValue = (ev) => {
 		const inputValue = ev.target.value;
 		this.setState({
-			inputValue: inputValue
+			inputValue
 		})
 	}
 	deleteItem = (el) => {
@@ -23,10 +23,8 @@ class List extends React.Component {
 	}
 	addItem = () => {
 		if(this.state.inputValue) {
-			const newItems = [...this.state.items];
-			newItems.push({name: this.state.inputValue, done: false, id: Date.now()});
 			this.setState({
-				items: newItems,
+				items: [...this.state.items, {name: this.state.inputValue, done: false, id: Date.now()} ],
 				inputValue: ''
 			})
 		}
@@ -34,10 +32,9 @@ class List extends React.Component {
 	doneItems() { return this.state.items.filter(el =>  el.done === true) }
 	todoItems() { return this.state.items.filter(el =>  el.done === false) }
 	switchStatus = (el) => {
-		const index = this.state.items.indexOf(el);
-		const newItems = [...this.state.items];
-		newItems[index].done = !newItems[index].done;
-		this.setState({items: newItems}) //перерендеривается все items-ы? Есть более оптимальный способ
+		this.setState({items: this.state.items.map(item => {
+			return item.id === el.id ? {...el, done: !el.done} : item;
+		})})
 	}
 	render() {
 		return (
@@ -49,14 +46,14 @@ class List extends React.Component {
 						value={this.state.inputValue} 
 						onChange={(ev) => this.setInputValue(ev)} 
 						placeholder="type your item here" />
-					<button onClick={this.addItem} className="list-btn">Add item</button>
+					<button onClick={ this.addItem } className="list-btn">Add item</button>
 				</div>
 				<ul className="list-box">
-					{	//for loops?
+					{	
 						this.state.items.length
 						? (this.state.items.map(el => {
 								return (
-									<ListItem 
+									<ListItem
 										key={el.id}
 										id={el.id}
 										name={el.name}
@@ -66,7 +63,7 @@ class List extends React.Component {
 									/>
 							)
 						}))
-						: (<div>There is no items TODO</div>)
+						: (<>There is no items TODO</>)
 					}
 				</ul>
 				<div>
